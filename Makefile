@@ -1,3 +1,10 @@
+TOOL=/opt/i686-pc-elf/bin
+AR=$(TOOL)/i686-pc-elf-ar
+AS=$(TOOL)/i686-pc-elf-as
+CC=$(TOOL)/i686-pc-elf-gcc
+CXX=$(TOOL)/i686-pc-elf-g++
+LD=$(TOOL)/i686-pc-elf-ld
+
 SRC=$(wildcard *.c)
 NAS=$(wildcard *.asm)
 GAS=$(wildcard *.s)
@@ -15,3 +22,6 @@ libostool.a: $(OBJ)
 
 %.o: %.s
 	$(AS) -o $@ $<
+
+clean:
+	-rm -f $(OBJ) libostool.a
