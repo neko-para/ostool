@@ -19,4 +19,6 @@ void Outs8(word port, dword count, const void* data);
 void Outs16(word port, dword count, const void* data);
 void Outs32(word port, dword count, const void* data);
 
+void Hlt();
+
 #endif

@@ -14,6 +14,8 @@ global Outs8
 global Outs16
 global Outs32
 
+global Hlt
+
 In8:
 	mov dx, word [esp + 4]
 	xor eax, eax
@@ -86,6 +88,7 @@ Outs8_loop:
 	outsb
 	jmp $+2
 	loop Outs8_loop
+	pop esi
 	ret
 
 Outs16:
@@ -97,6 +100,7 @@ Outs16_loop:
 	outsw
 	jmp $+2
 	loop Outs16_loop
+	pop esi
 	ret
 
 Outs32:
@@ -108,4 +112,9 @@ Outs32_loop:
 	outsd
 	jmp $+2
 	loop Outs32_loop
+	pop esi
+	ret
+
+Hlt:
+	hlt
 	ret

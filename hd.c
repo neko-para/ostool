@@ -10,7 +10,6 @@ word hdRead(bit drive, byte sects, dword offset, void* data) {
 	drive &= 1;
 	offset &= 0xFFFFFFF;
 	Out8(0x01F6, 0xE0 | (drive << 4) | ((offset >> 24) & 0xF));
-	Out8(0x01F1, 0);
 	Out8(0x01F2, sects);
 	Out8(0x01F3, offset);
 	Out8(0x01F4, offset >> 8);
@@ -38,7 +37,6 @@ word hdWrite(bit drive, byte sects, dword offset, const void* data) {
 	drive &= 1;
 	offset &= 0xFFFFFFF;
 	Out8(0x01F6, 0xE0 | (drive << 4) | ((offset >> 24) & 0xF));
-	Out8(0x01F1, 0);
 	Out8(0x01F2, sects);
 	Out8(0x01F3, offset);
 	Out8(0x01F4, offset >> 8);
@@ -58,6 +56,6 @@ word hdWrite(bit drive, byte sects, dword offset, const void* data) {
 		Outs16(0x01F0, 256, data);
 		data = (const unsigned char*)data + 512;
 	}
+	Out8(0x01F7, 0xE7);
 	return sects;
-
 }
