@@ -1,11 +1,12 @@
 #include "gdt.h"
 
-void gdtSet(gdtEntry* entry, dword base, dword limit, byte access, byte granularity) {
-	entry->base_low = base;
-	entry->base_middle = base >> 16;
-	entry->base_high = base >> 24;
-	entry->limit_low = limit;
-	entry->granularity = ((limit >> 16) & 0x0F) | (granularity & 0xF0);
+void gdtSet(gdtEntry* entry, dword base, dword limit, byte access, byte flag) {
+	entry->base_lo = base;
+	entry->base_mi = base >> 16;
+	entry->base_hi = base >> 24;
+	entry->limit_lo = limit;
+	entry->limit_hi = limit >> 16;
+	entry->flag = flag;
 	entry->access = access;
 }
 

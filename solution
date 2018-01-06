@@ -5,5 +5,7 @@ target libostool
 	default true
 	source @gdt.asm
 	source @gdtutil.c
+	source @idt.asm
+	source @idtutil.c
 	source @hd.c
 	source @io.asm

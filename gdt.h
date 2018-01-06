@@ -4,12 +4,15 @@
 #include "types.h"
 
 struct gdtEntry {
-	word limit_low;
-	word base_low;
-	byte base_middle;
+	word limit_lo;
+	word base_lo;
+	byte base_mi;
 	byte access;
-	byte granularity;
-	byte base_high;
+	struct {
+		byte limit_hi : 4;
+		byte flag : 4;
+	};
+	byte base_hi;
 } __attribute__((packed));
 
 typedef struct gdtEntry gdtEntry;
@@ -21,8 +24,8 @@ struct gdtPtr {
 
 typedef struct gdtPtr gdtPtr;
 
-void gdtUpdate(gdtPtr* ptr);
-void gdtSet(gdtEntry* entry, dword base, dword limit, byte access, byte granularity);
+void gdtUpdate(gdtPtr* ptr, dword code_seg, dword data_seg);
+void gdtSet(gdtEntry* entry, dword base, dword limit, byte access, byte flag);
 void gdtSetPtr(gdtPtr* ptr, gdtEntry entrys[], word cnt);
 
 #endif
