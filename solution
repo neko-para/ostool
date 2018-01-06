@@ -1,0 +1,9 @@
+toolprefix /opt/i686-pc-elf/bin/i686-pc-elf-
+format elf
+target libostool
+	type archive
+	default true
+	source @gdt.asm
+	source @gdtutil.c
+	source @hd.c
+	source @io.asm

@@ -1,3 +1,5 @@
-*.o
-*.a
 .vscode
+build.*
+.output
+gensol.log
+Makefile
