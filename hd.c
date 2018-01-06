@@ -20,8 +20,6 @@ word hdRead(bit drive, byte sects, dword offset, void* data) {
 			byte status = hdStatus();
 			if (status & HD_STATUS_DRQ) {
 				break;
-			} else if (status & HD_STATUS_BSY) {
-				continue;
 			} else if (status & (HD_STATUS_ERR | HD_STATUS_DF)) {
 				return i | (status << 8);
 			}
@@ -47,8 +45,6 @@ word hdWrite(bit drive, byte sects, dword offset, const void* data) {
 			byte status = hdStatus();
 			if (status & HD_STATUS_DRQ) {
 				break;
-			} else if (status & HD_STATUS_BSY) {
-				continue;
 			} else if (status & (HD_STATUS_ERR | HD_STATUS_DF)) {
 				return i | (status << 8);
 			}
@@ -57,5 +53,15 @@ word hdWrite(bit drive, byte sects, dword offset, const void* data) {
 		data = (const unsigned char*)data + 512;
 	}
 	Out8(0x01F7, 0xE7);
+	while (1) {
+		byte status = hdStatus();
+		if (status & HD_STATUS_BSY) {
+			continue;
+		} else if (status & (HD_STATUS_ERR | HD_STATUS_DF)) {
+			return sects | (status << 8);
+		} else {
+			break;
+		}
+	}
 	return sects;
 }
